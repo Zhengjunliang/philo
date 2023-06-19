@@ -56,7 +56,7 @@ int	check_finished(t_data *data)
 int	finishing_eating(t_philo *philo, t_data *data)
 {
 	pthread_mutex_lock(&(data->mutex));
-	if (data->nbr_2_eat != 0 && philo->eat_count == data->nbr_2_eat)
+	if (data->eat_nbr != 0 && philo->eat_count == data->eat_nbr)
 	{
 		data->finished_eat++;
 		if (data->finished_eat == data->nbr_philo)
@@ -74,11 +74,11 @@ int	finishing_eating(t_philo *philo, t_data *data)
 
 void	*routine_philo(void *info)
 {
-	t_data *data;
+	t_data	*data;
 	t_philo	*philo;
 
 	philo = info;
-	data = philo->info;
+	data = philo->data;
 	priority_check(philo);
 	while (1)
 	{

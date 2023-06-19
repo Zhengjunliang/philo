@@ -48,7 +48,7 @@ void	finished_or_died(t_philo *philo, t_data *data)
 		}
 		pthread_mutex_unlock(&data->mutex);
 		pthread_mutex_lock(&data->mutex);
-		if ((data->nbr_2_eat != 0) && (data->nbr_philo == data->finished_eat))
+		if ((data->eat_nbr != 0) && (data->nbr_philo == data->finished_eat))
 		{
 			data->finished = 1;
 			pthread_mutex_unlock(&data->mutex);

@@ -12,35 +12,18 @@
 
 #include "philo.h"
 
-int	is_digit(char c)
+int	check_input(char **argv, int i, int j)
 {
-	return (c >= '0' && c <= '9');
-}
-
-int	is_number(char *argv)
-{
-	int i;
-
-	i = 0;
-	if ((argv[i] == '+' || argv[i] == '-') && argv[i + 1] != '\0')
-		i++;
-	while (argv[i] && is_digit(argv[i]))
-		i++;
-	if (argv[i] != '\0' && !is_digit(argv[i]))
-		return (1);
-	return (0);
-}
-
-int	check_input(char **argv)
-{
-	int	i;
-
-	i = 1;
-	while (argv[i])
+	while (argv[j])
 	{
-		if (is_number(argv[i]) == 1)
-			return (1);
-		i++;
+		while (argv[j][i])
+		{
+			if (argv[j][i] < '0' || argv[j][i] > '9' || ft_strlen(argv[j]) > 10)
+				return (1);
+			i++;
+		}
+		i = 0;
+		j++;
 	}
 	return (0);
 }
@@ -52,12 +35,12 @@ int	main(int argc, char **argv)
 	if (argc != 5 && argc != 6)
 	{
 		if (argc < 5)
-			error_msg("At least 5 arguments are needed\n");
+			ft_exit("At least 5 arguments are needed\n");
 		else if (argc > 6)
-			error_msg("only 6 arguments are needed\n");
+			ft_exit("only 6 arguments are needed\n");
 	}
-	if (check_input(argv) != 0)
-		error_msg("Enter the digit");
+	if (check_input(argv, 0, 1) != 0)
+		ft_exit("Invalid Arguments\n");
 	memset(&data, 0, sizeof(t_data));
 	ft_init(&data, argv, argc);
 }

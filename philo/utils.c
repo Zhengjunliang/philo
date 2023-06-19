@@ -12,10 +12,20 @@
 
 #include "philo.h"
 
-void	error_msg(char *msg)
+void	ft_exit(char *str)
 {
-	printf("%s\n", msg);
+	printf("%s\n", str);
 	exit(1);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 int	ft_atoi(const char *str)
@@ -30,7 +40,7 @@ int	ft_atoi(const char *str)
 	if ((str[i] == '-') || (str[i] == '+'))
 	{
 		if (str[i] == '-')
-			error_msg("Negative number Error");
+			ft_exit("Negative number Error");
 		i++;
 	}
 	while ((str[i] >= '0' && str[i] <= '9') && str[i] != '\0')
@@ -43,7 +53,7 @@ int	ft_atoi(const char *str)
 
 long long	ft_time_in_ms(void)
 {
-	struct timeval current_time;
+	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
 	return ((current_time.tv_sec * 1000 + current_time.tv_usec / 1000));

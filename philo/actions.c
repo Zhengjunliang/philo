@@ -14,12 +14,12 @@
 
 void	use_two_forks(t_philo *philo, t_data *info)
 {
-	pthread_mutex_lock(&(info->fork
+	pthread_mutex_lock(&(info->forks
 		[ft_check_fork(philo->left, philo->right)]));
 	terminal_msg(info, philo->id, "has taken fork");
 	if (info->nbr_philo != 1)
 	{
-		pthread_mutex_lock(&(info->fork
+		pthread_mutex_lock(&(info->forks
 			[ft_check_fork01(philo->right, philo->left)]));
 		terminal_msg(info, philo->id, "has taken fork");
 		terminal_msg(info, philo->id, "is eating");
@@ -28,10 +28,10 @@ void	use_two_forks(t_philo *philo, t_data *info)
 		pthread_mutex_unlock(&info->mutex);
 		philo->eat_count = philo->eat_count + 1;
 		pause_time(info, (long long)info->eat_time);
-		pthread_mutex_unlock(&(info->fork
+		pthread_mutex_unlock(&(info->forks
 			[ft_check_fork01(philo->right, philo->left)]));
 	}
-	pthread_mutex_unlock(&(info->fork
+	pthread_mutex_unlock(&(info->forks
 		[ft_check_fork(philo->left, philo->right)]));
 }
 
@@ -81,13 +81,13 @@ void	pause_time(t_data *info, long long wait_time)
 
 void	threads_free(t_philo *philo, t_data *info)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (index < info->nbr_philo)
-		pthread_mutex_destroy(&(info->fork[index++]));
+		pthread_mutex_destroy(&(info->forks[index++]));
 	free(philo);
-	free(info->fork);
+	free(info->forks);
 	pthread_mutex_destroy(&(info->lock));
 	pthread_mutex_destroy(&(info->mutex));
 }

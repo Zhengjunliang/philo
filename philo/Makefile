@@ -18,13 +18,13 @@ SRCS		=	main.c utils.c ft_init.c threads.c \
 OBJS		=	$(SRCS:.c=.o)
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -g -lpthread
+CFLAGS		=	-Wall -Wextra -Werror -g
 RM			=	rm -f
 
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) 
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lpthread
 
 clean:
 			$(RM) $(OBJS)
